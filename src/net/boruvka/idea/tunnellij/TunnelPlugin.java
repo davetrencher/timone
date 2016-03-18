@@ -12,6 +12,8 @@ import java.util.Properties;
 
 import javax.swing.UIManager;
 
+import com.intellij.ui.content.ContentManager;
+import com.sun.istack.internal.NotNull;
 import net.boruvka.idea.tunnellij.action.AboutAction;
 import net.boruvka.idea.tunnellij.action.ClearAction;
 import net.boruvka.idea.tunnellij.action.ClearSelectedAction;
@@ -34,7 +36,6 @@ import com.intellij.openapi.wm.ToolWindowManager;
 
 /**
  * @author boruvka
- * @since
  */
 public class TunnelPlugin implements ProjectComponent {
 
@@ -73,6 +74,8 @@ public class TunnelPlugin implements ProjectComponent {
         unregisterToolWindow();
     }
 
+    @org.jetbrains.annotations.NotNull
+    @Override
     public String getComponentName() {
         return COMPONENT_NAME;
     }
@@ -82,8 +85,6 @@ public class TunnelPlugin implements ProjectComponent {
             try {
                 InputStream is = new FileInputStream(PROPERTIES_FILE);
                 PROPERTIES.load(is);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -100,12 +101,15 @@ public class TunnelPlugin implements ProjectComponent {
     }
 
     private void initToolWindow() {
+        System.out.println("Hello Worlkd");
 
         ToolWindowManager toolWindowManager = ToolWindowManager
                 .getInstance(project);
         tunnelPanel = createTunnelPanel();
         tunnelWindow = toolWindowManager.registerToolWindow(TOOL_WINDOW_ID,
-                tunnelPanel, ToolWindowAnchor.BOTTOM);
+                true, ToolWindowAnchor.BOTTOM);
+        ContentManager cm = tunnelWindow.getContentManager();
+        cm.addContent(cm.getContent(tunnelPanel));
         tunnelWindow.setIcon(Icons.ICON_WATCH);
 
         DefaultActionGroup actionGroup = initToolbarActionGroup();
