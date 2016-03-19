@@ -5,14 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.ByteArrayOutputStream;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -88,7 +81,11 @@ public class CallsPanel extends JPanel implements TunnelListener {
     }
 
     public synchronized void newCall(Call call) {
-        model.addElement(call);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                model.addElement(call);
+            }
+        });
     }
 
     public synchronized void endCall(Call call) {
