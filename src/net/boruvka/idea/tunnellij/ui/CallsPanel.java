@@ -16,6 +16,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.intellij.ui.components.JBList;
+import com.intellij.ui.components.JBScrollPane;
 import net.boruvka.idea.tunnellij.net.Call;
 import net.boruvka.idea.tunnellij.net.TunnelListener;
 
@@ -39,7 +41,7 @@ public class CallsPanel extends JPanel implements TunnelListener {
 
         setBackground(UIManager.getColor("Tree.textBackground"));
         model = new DefaultListModel();
-        list = new JList(model);
+        list = new JBList(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         viewers = new ViewersPanel();
@@ -62,7 +64,7 @@ public class CallsPanel extends JPanel implements TunnelListener {
         list.setVisibleRowCount(3);
 
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.add(new JScrollPane(list), BorderLayout.CENTER);
+        topPanel.add(new JBScrollPane(list), BorderLayout.CENTER);
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(viewers, BorderLayout.CENTER);
 
@@ -168,8 +170,8 @@ class ViewersPanel extends JPanel {
         left.setBackground(UIManager.getColor("Tree.textBackground"));
         right.setBackground(UIManager.getColor("Tree.textBackground"));
 
-        leftScroll = new JScrollPane(left);
-        rightScroll = new JScrollPane(right);
+        leftScroll = new JBScrollPane(left);
+        rightScroll = new JBScrollPane(right);
 
         splitPaneLeftRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPaneLeftRight.setDividerSize(CallsPanel.DIVIDER_SIZE);
