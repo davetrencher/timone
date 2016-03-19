@@ -1,4 +1,4 @@
-<idea-plugin url="http://www.boruvka.net">
+<idea-plugin url="https://github.com/trampusmaximus">
 	
 	<name>TunnelliJ</name>
 	
@@ -12,11 +12,11 @@
 	
 	<version>2.0</version>
 	
-	<vendor email="milan.boruvka@gmail.com" url="http://blog.boruvka.net">Milan Boruvka</vendor>
+	<vendor url="https://github.com/trampusmaximus">Dave Trencher</vendor>
+
+	<idea-version since-build="145.258"/>
 	
-	<idea-version since-build="3000"/>
-	
-	<change-notes>repackaged for Idea 13.x</change-notes>
+	<change-notes>repackaged for Idea 16.x</change-notes>
 	
 	<category>network</category>
 	
