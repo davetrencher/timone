@@ -26,8 +26,6 @@ public class CallsPanel extends JPanel implements TunnelListener {
 
     private ViewersPanel viewers;
 
-    private JSplitPane splitPaneTopBottom;
-
     public static final int DIVIDER_SIZE = 2;
 
     public CallsPanel() {
@@ -61,7 +59,11 @@ public class CallsPanel extends JPanel implements TunnelListener {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(viewers, BorderLayout.CENTER);
 
-        splitPaneTopBottom = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        createSplitPane(topPanel, bottomPanel);
+    }
+
+    private void createSplitPane(JPanel topPanel, JPanel bottomPanel) {
+        JSplitPane splitPaneTopBottom = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPaneTopBottom.setDividerLocation(0.20d);
         splitPaneTopBottom.setResizeWeight(0.20d);
         splitPaneTopBottom.setDividerSize(DIVIDER_SIZE);
