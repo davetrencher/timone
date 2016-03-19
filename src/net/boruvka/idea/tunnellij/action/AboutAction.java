@@ -5,9 +5,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.swing.JOptionPane;
 
+import com.intellij.openapi.ui.Messages;
 import net.boruvka.idea.tunnellij.ui.Icons;
 
 import com.intellij.openapi.actionSystem.AnAction;
@@ -24,8 +26,8 @@ public class AboutAction extends AnAction {
     }
 
     public void actionPerformed(AnActionEvent event) {
-        InputStream is = getClass().getClassLoader().getResourceAsStream(
-                "readme.txt");
+
+        InputStream is = getClass().getClassLoader().getResourceAsStream("/text/readme.txt");
         if (is != null) {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuffer sb = new StringBuffer();
@@ -39,8 +41,6 @@ public class AboutAction extends AnAction {
                 area.setEditable(false);
                 area.append(sb.toString());
                 JOptionPane.showMessageDialog(null, area);
-                // Messages.showMessageDialog(sb.toString(), "About TunnelliJ",
-                // Messages.getInformationIcon());
             } catch (IOException e) {
                 e.printStackTrace();
             }
