@@ -24,7 +24,7 @@ public class Tunnel {
 
     private boolean shouldStop = false;
 
-    private LinkedList listeners = new LinkedList();
+    private final LinkedList listeners = new LinkedList();
 
     private ServerSocket serverSocket = null;
 
