@@ -2,11 +2,7 @@ package net.boruvka.idea.tunnellij.ui;
 
 import java.awt.BorderLayout;
 
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import net.boruvka.idea.tunnellij.TunnelPlugin;
@@ -149,6 +145,9 @@ public class TunnelPanel extends JPanel {
             subPanelAddress.add(destPort);
 
             add(subPanelAddress, BorderLayout.SOUTH);
+
+            subPanelAddress.revalidate();
+            subPanelAddress.repaint();
         }
 
         public void setControlPanelEditable(boolean b) {
@@ -160,13 +159,19 @@ public class TunnelPanel extends JPanel {
             TunnelPlugin.PROPERTIES.put(TunnelPlugin.TunnelConfig.SRC_PORT,
                     srcPort.getText());
 
-            srcPort.setEditable(b);
-            destHost.setEditable(b);
-            destPort.setEditable(b);
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    srcPort.setEditable(b);
+                    destHost.setEditable(b);
+                    destPort.setEditable(b);
 
-            srcPort.setEnabled(b);
-            destHost.setEnabled(b);
-            destPort.setEnabled(b);
+                    srcPort.setEnabled(b);
+                    destHost.setEnabled(b);
+                    destPort.setEnabled(b);
+
+                }
+            });
+
         }
 
         public int getSrcPort() {
