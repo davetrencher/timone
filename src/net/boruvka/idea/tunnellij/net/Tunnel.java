@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.boruvka.idea.tunnellij.TunnelPlugin;
+import net.boruvka.idea.tunnellij.settings.TunnelSetting;
 
 /**
  * @author boruvka
@@ -16,11 +17,11 @@ import net.boruvka.idea.tunnellij.TunnelPlugin;
  */
 public class Tunnel {
 
-    private int srcPort;
+    private final int srcPort;
 
-    private int destPort;
+    private final int destPort;
 
-    private String destHost = "localhost";
+    private final String destHost;
 
     private boolean shouldStop = false;
 
@@ -31,14 +32,23 @@ public class Tunnel {
     private boolean isRunning = false;
 
     public Tunnel(int srcPort, int destPort) {
-        this.srcPort = srcPort;
-        this.destPort = destPort;
+        this(srcPort,destPort,null);
     }
 
     public Tunnel(int srcPort, int destPort, String destHost) {
         this.srcPort = srcPort;
         this.destPort = destPort;
-        this.destHost = destHost;
+        if (destHost == null) {
+            this.destHost = destHost;
+        } else {
+            this.destHost = "localhost";
+        }
+    }
+
+    public Tunnel(TunnelSetting tunnelSetting) {
+        this.srcPort = tunnelSetting.getSrcPort();
+        this.destHost = tunnelSetting.getDestHost();
+        this.destPort = tunnelSetting.getDestPort();
     }
 
     public int getSrcPort() {

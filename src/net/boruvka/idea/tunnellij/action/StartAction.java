@@ -1,8 +1,13 @@
 package net.boruvka.idea.tunnellij.action;
 
+import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.extensions.ExtensionPointName;
 import net.boruvka.idea.tunnellij.TunnelPlugin;
 import net.boruvka.idea.tunnellij.net.Tunnel;
 import net.boruvka.idea.tunnellij.net.TunnelManager;
+import net.boruvka.idea.tunnellij.settings.ConfigProvider;
+import net.boruvka.idea.tunnellij.settings.ConfigProvider;
+import net.boruvka.idea.tunnellij.settings.TunnelSetting;
 import net.boruvka.idea.tunnellij.ui.CallsPanel;
 import net.boruvka.idea.tunnellij.ui.ControlPanel;
 import net.boruvka.idea.tunnellij.ui.Icons;
@@ -14,6 +19,8 @@ import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * @author boruvka
@@ -45,7 +52,15 @@ public class StartAction extends AnAction {
         ControlPanel control = tunnelPanel.getControlPanelListener();
         CallsPanel list = tunnelPanel.getCallsPanelListener();
 
-        Tunnel tunnel =  new Tunnel(control.getSrcPort(),control.getDestPort(), control.getDestHost());
+        ConfigProvider config = project.getComponent(ConfigProvider.class);
+        List<TunnelSetting> settings = config.getState().getSettingsList();
+
+        Tunnel tunnel;
+        if (settings.size() > 0) {
+            tunnel = new Tunnel(settings.get(0));
+        } else {
+            tunnel = new Tunnel(control.getSrcPort(), control.getDestPort(), control.getDestHost());
+        }
         tunnel.addTunnelListener(list);
         tunnel.addTunnelListener(control);
         return tunnel;

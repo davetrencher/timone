@@ -26,5 +26,21 @@
 			<interface-class>net.boruvka.idea.tunnellij.TunnelPlugin</interface-class>
 		</component>
 	</project-components>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<!-- Add your extensions here -->
+		<applicationService
+				serviceImplementation="net.boruvka.idea.tunnellij.settings.ConfigProvider"
+				serviceInterface="net.boruvka.idea.tunnellij.settings.ConfigProvider"
+				overrides="false"
+		/>
+	</extensions>
+
+	<application-components>
+		<component>
+			<implementation-class>net.boruvka.idea.tunnellij.settings.ConfigProvider</implementation-class>
+			<interface-class>net.boruvka.idea.tunnellij.settings.ConfigProvider</interface-class>
+		</component>
+	</application-components>
 	
 </idea-plugin>
