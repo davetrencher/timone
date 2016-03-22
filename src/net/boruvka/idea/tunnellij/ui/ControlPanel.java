@@ -3,6 +3,7 @@ package net.boruvka.idea.tunnellij.ui;
 import net.boruvka.idea.tunnellij.TunnelPlugin;
 import net.boruvka.idea.tunnellij.net.Call;
 import net.boruvka.idea.tunnellij.net.TunnelListener;
+import org.apache.commons.lang.math.NumberUtils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -127,16 +128,17 @@ public class ControlPanel extends JPanel implements TunnelListener {
 
         public boolean verify(JComponent input) {
             String text = ((JTextField) input).getText();
-            try {
+
+            if (NumberUtils.isDigits(text)) {
                 Integer.parseInt(text);
                 return true;
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+            } else {
                 return false;
             }
         }
 
     }
+
 
 }
 
