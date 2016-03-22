@@ -8,6 +8,7 @@ import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.ContentFactory;
 import net.boruvka.idea.tunnellij.action.*;
+import net.boruvka.idea.tunnellij.net.TunnelManager;
 import net.boruvka.idea.tunnellij.ui.Icons;
 import net.boruvka.idea.tunnellij.ui.TunnelPanel;
 import org.jetbrains.annotations.NotNull;
@@ -80,6 +81,8 @@ public class TunnelPlugin implements ProjectComponent {
             PROPERTIES.store(os, "TunnelliJ plugin");
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            TunnelManager.shutdownAll();
         }
     }
 

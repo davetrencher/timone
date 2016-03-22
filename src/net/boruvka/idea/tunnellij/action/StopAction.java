@@ -1,6 +1,7 @@
 package net.boruvka.idea.tunnellij.action;
 
 import net.boruvka.idea.tunnellij.TunnelPlugin;
+import net.boruvka.idea.tunnellij.net.TunnelManager;
 import net.boruvka.idea.tunnellij.ui.Icons;
 import net.boruvka.idea.tunnellij.ui.TunnelPanel;
 
@@ -24,7 +25,8 @@ public class StopAction extends AnAction {
         Project project = (Project) event.getDataContext().getData("project");
         TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel(project);
         try {
-            tunnelPanel.stop();
+            TunnelManager.stop(tunnelPanel.getSrcPort());
+            tunnelPanel.repaint();
         } catch (Exception e) {
             e.printStackTrace();
             Messages.showMessageDialog("Error when starting server: "

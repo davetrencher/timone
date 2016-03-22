@@ -41,6 +41,10 @@ public class Tunnel {
         this.destHost = destHost;
     }
 
+    public int getSrcPort() {
+        return srcPort;
+    }
+
     public void addTunnelListener(TunnelListener listener) {
         synchronized (listeners) {
             listeners.add(listener);
@@ -144,6 +148,7 @@ public class Tunnel {
             try {
                 serverSocket.close();
                 isRunning = false;
+                System.out.println("Shutdown tunnel running on: " +getSrcPort());
             } catch (IOException e) {
             }
         }
