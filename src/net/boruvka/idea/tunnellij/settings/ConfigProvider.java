@@ -32,7 +32,6 @@ public class ConfigProvider implements ApplicationComponent, PersistentStateComp
 
     }
 
-
     @NotNull
     @Override
     public String getComponentName() {

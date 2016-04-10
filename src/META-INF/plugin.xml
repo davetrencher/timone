@@ -42,5 +42,9 @@
 			<interface-class>net.boruvka.idea.tunnellij.settings.ConfigProvider</interface-class>
 		</component>
 	</application-components>
-	
+
+	<actions>
+		<action id="Settings" class="net.boruvka.idea.tunnellij.action.SettingsAction" text="Settings"
+				description="Action To Set the Tunnels"/>
+	</actions>
 </idea-plugin>

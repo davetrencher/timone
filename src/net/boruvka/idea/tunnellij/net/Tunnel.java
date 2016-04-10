@@ -32,13 +32,13 @@ public class Tunnel {
     private boolean isRunning = false;
 
     public Tunnel(int srcPort, int destPort) {
-        this(srcPort,destPort,null);
+        this(srcPort,null,destPort);
     }
 
-    public Tunnel(int srcPort, int destPort, String destHost) {
+    public Tunnel(int srcPort, String destHost, int destPort) {
         this.srcPort = srcPort;
         this.destPort = destPort;
-        if (destHost == null) {
+        if (destHost != null) {
             this.destHost = destHost;
         } else {
             this.destHost = "localhost";
@@ -53,6 +53,14 @@ public class Tunnel {
 
     public int getSrcPort() {
         return srcPort;
+    }
+
+    public int getDestPort() {
+        return destPort;
+    }
+
+    public String getDestHost() {
+        return destHost;
     }
 
     public void addTunnelListener(TunnelListener listener) {

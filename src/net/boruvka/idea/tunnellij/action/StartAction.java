@@ -1,23 +1,19 @@
 package net.boruvka.idea.tunnellij.action;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.extensions.ExtensionPointName;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.Presentation;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import net.boruvka.idea.tunnellij.TunnelPlugin;
 import net.boruvka.idea.tunnellij.net.Tunnel;
 import net.boruvka.idea.tunnellij.net.TunnelManager;
-import net.boruvka.idea.tunnellij.settings.ConfigProvider;
 import net.boruvka.idea.tunnellij.settings.ConfigProvider;
 import net.boruvka.idea.tunnellij.settings.TunnelSetting;
 import net.boruvka.idea.tunnellij.ui.CallsPanel;
 import net.boruvka.idea.tunnellij.ui.ControlPanel;
 import net.boruvka.idea.tunnellij.ui.Icons;
 import net.boruvka.idea.tunnellij.ui.TunnelPanel;
-
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.Presentation;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -59,7 +55,7 @@ public class StartAction extends AnAction {
         if (settings.size() > 0) {
             tunnel = new Tunnel(settings.get(0));
         } else {
-            tunnel = new Tunnel(control.getSrcPort(), control.getDestPort(), control.getDestHost());
+            tunnel = new Tunnel(control.getSrcPort(), control.getDestHost(), control.getDestPort());
         }
         tunnel.addTunnelListener(list);
         tunnel.addTunnelListener(control);

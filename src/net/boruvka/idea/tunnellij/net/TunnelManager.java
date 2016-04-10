@@ -64,4 +64,23 @@ public class TunnelManager {
             }
         });
     }
+
+    public static boolean isTunnelRunningOnPort(int port) {
+
+        return runningTunnels.values().stream().filter(tunnel -> tunnel.getSrcPort() == port).findFirst().isPresent();
+
+    }
+
+    public static boolean isTunnelRunning(Tunnel tunnel) {
+
+        Tunnel runningTunnel = runningTunnels.get(tunnel.getSrcPort());
+        if (runningTunnel == null) {
+            return false;
+        }
+
+        return runningTunnel.getDestHost().equals(tunnel.getDestHost())
+                    && (runningTunnel.getDestPort() == tunnel.getDestPort());
+
+    }
+
 }
