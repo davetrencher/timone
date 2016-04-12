@@ -25,7 +25,7 @@ Author
 
 WWW
 ---
-    <https://github.com/davetrencher/timone>
+    https://github.com/davetrencher/timone
 
 Prerequisites
 --------------
@@ -39,7 +39,7 @@ Tested on
 Known issues:
 -------------
 
-    <https://github.com/davetrencher/timone/issues>
+    https://github.com/davetrencher/timone/issues
 
 Bug Reports
 -----------
