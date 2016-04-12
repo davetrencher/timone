@@ -22,29 +22,29 @@
 	
 	<project-components>
 		<component>
-			<implementation-class>net.boruvka.idea.tunnellij.TunnelPlugin</implementation-class>
-			<interface-class>net.boruvka.idea.tunnellij.TunnelPlugin</interface-class>
+			<implementation-class>com.github.davetrencher.timone.TunnelPlugin</implementation-class>
+			<interface-class>com.github.davetrencher.timone.TunnelPlugin</interface-class>
 		</component>
 	</project-components>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
 		<applicationService
-				serviceImplementation="net.boruvka.idea.tunnellij.settings.ConfigProvider"
-				serviceInterface="net.boruvka.idea.tunnellij.settings.ConfigProvider"
+				serviceImplementation="com.github.davetrencher.timone.settings.ConfigProvider"
+				serviceInterface="com.github.davetrencher.timone.settings.ConfigProvider"
 				overrides="false"
 		/>
 	</extensions>
 
 	<application-components>
 		<component>
-			<implementation-class>net.boruvka.idea.tunnellij.settings.ConfigProvider</implementation-class>
-			<interface-class>net.boruvka.idea.tunnellij.settings.ConfigProvider</interface-class>
+			<implementation-class>com.github.davetrencher.timone.settings.ConfigProvider</implementation-class>
+			<interface-class>com.github.davetrencher.timone.settings.ConfigProvider</interface-class>
 		</component>
 	</application-components>
 
 	<actions>
-		<action id="Settings" class="net.boruvka.idea.tunnellij.action.SettingsAction" text="Settings"
+		<action id="Settings" class="com.github.davetrencher.timone.action.SettingsAction" text="Settings"
 				description="Action To Set the Tunnels"/>
 	</actions>
 </idea-plugin>
