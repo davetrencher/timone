@@ -1,12 +1,9 @@
 package com.github.davetrencher.timone.settings;
 
 import com.github.davetrencher.timone.net.TunnelManager;
-import com.github.davetrencher.timone.net.Tunnel;
-import com.github.davetrencher.timone.net.TunnelManager;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by dave on 22/03/16.
@@ -32,7 +29,7 @@ public class TunnelSetting {
         return srcPort;
     }
 
-    public void setSrcPort(int srcPort) {
+    private void setSrcPort(int srcPort) {
         this.srcPort = srcPort;
     }
 
@@ -40,7 +37,7 @@ public class TunnelSetting {
         return destHost;
     }
 
-    public void setDestHost(String destHost) {
+    private void setDestHost(String destHost) {
         this.destHost = destHost;
     }
 
@@ -48,7 +45,7 @@ public class TunnelSetting {
         return destPort;
     }
 
-    public void setDestPort(int destPort) {
+    private void setDestPort(int destPort) {
         this.destPort = destPort;
     }
 

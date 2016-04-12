@@ -1,18 +1,13 @@
 package com.github.davetrencher.timone.action;
 
 import com.github.davetrencher.timone.TunnelPlugin;
-import com.github.davetrencher.timone.ui.TunnelPanel;
-import com.github.davetrencher.timone.TunnelPlugin;
 import com.github.davetrencher.timone.ui.Icons;
 import com.github.davetrencher.timone.ui.TunnelPanel;
-
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.ToggleAction;
-import com.intellij.openapi.project.Project;
 
 /**
  * @author boruvka
- * @since
  */
 public class WrapAction extends ToggleAction {
 
@@ -29,7 +24,6 @@ public class WrapAction extends ToggleAction {
     public void setSelected(AnActionEvent event, boolean b) {
         selected = b;
 
-        Project project = (Project) event.getDataContext().getData("project");
         TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
 
         if (selected)

@@ -1,17 +1,14 @@
 package com.github.davetrencher.timone.net;
 
-import com.intellij.openapi.ui.Messages;
 import com.github.davetrencher.timone.TunnelPlugin;
 import com.github.davetrencher.timone.ui.CallsPanel;
-import com.github.davetrencher.timone.ui.ControlPanel;
 import com.github.davetrencher.timone.ui.TunnelPanel;
+import com.intellij.openapi.ui.Messages;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * Created by dave on 21/03/16.
@@ -47,7 +44,7 @@ public class TunnelManager {
 
     }
 
-    public static void stop(int srcPort) throws InterruptedException, ExecutionException {
+    public static void stop(int srcPort) {
         executorService.submit(() -> {
             Tunnel tunnel = runningTunnels.get(srcPort);
             if (tunnel != null) {
@@ -61,13 +58,7 @@ public class TunnelManager {
     }
 
     public static void shutdownAll() {
-        runningTunnels.forEach((srcPort,tunnel) -> {
-            try {
-                stop(srcPort);
-            } catch (InterruptedException | ExecutionException e) {
-                System.out.println(String.format("Unable to shutdown tunnel on port: %S. %s",srcPort,e.getMessage()));
-            }
-        });
+        runningTunnels.forEach((srcPort,tunnel) -> stop(srcPort));
     }
 
     public static boolean isTunnelRunningOnPort(int port) {
@@ -77,14 +68,12 @@ public class TunnelManager {
     }
 
     public static boolean isTunnelRunning(Tunnel tunnel) {
-
-        Tunnel runningTunnel = runningTunnels.get(tunnel.getSrcPort());
-        if (runningTunnel == null) {
+        if (tunnel == null) {
             return false;
         }
 
-        return runningTunnel.getDestHost().equals(tunnel.getDestHost())
-                    && (runningTunnel.getDestPort() == tunnel.getDestPort());
+        Tunnel runningTunnel = runningTunnels.get(tunnel.getSrcPort());
+        return tunnel.matches(runningTunnel);
 
     }
 

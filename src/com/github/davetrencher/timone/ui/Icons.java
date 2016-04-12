@@ -4,7 +4,6 @@ import javax.swing.ImageIcon;
 
 /**
  * @author boruvka
- * @since
  */
 public class Icons {
 
@@ -30,8 +29,7 @@ public class Icons {
     private static ImageIcon getIcon(String file) {
         try {
             java.net.URL url = Icons.class.getResource("/" + file);
-            ImageIcon icon = new ImageIcon(url);
-            return icon;
+            return new ImageIcon(url);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Cannot find icon " + file);

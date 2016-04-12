@@ -232,7 +232,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/tunnellij.iml" filepath="$PROJECT_DIR$/tunnellij.iml" />
+      <module fileurl="file://$PROJECT_DIR$/timone.iml" filepath="$PROJECT_DIR$/timone.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" assert-keyword="false" jdk-15="false" project-jdk-name="IDEA IC-133.696" project-jdk-type="IDEA JDK" />

@@ -38,7 +38,7 @@ public class ConfigProvider implements ApplicationComponent, PersistentStateComp
         return getClass().getSimpleName();
     }
 
-    public State myState = new State();
+    private State myState = new State();
 
     public static class State {
 

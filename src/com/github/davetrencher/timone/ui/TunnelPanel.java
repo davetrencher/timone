@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  * @author boruvka
- * @since
  */
 public class TunnelPanel extends JPanel {
 

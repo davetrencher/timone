@@ -1,21 +1,17 @@
 package com.github.davetrencher.timone.net;
 
+import com.github.davetrencher.timone.TunnelPlugin;
+import com.github.davetrencher.timone.settings.TunnelSetting;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Iterator;
 import java.util.LinkedList;
-
-import com.github.davetrencher.timone.TunnelPlugin;
-import com.github.davetrencher.timone.settings.TunnelSetting;
-import com.github.davetrencher.timone.TunnelPlugin;
-import com.github.davetrencher.timone.settings.TunnelSetting;
 
 /**
  * @author boruvka
- * @since
  */
 public class Tunnel {
 
@@ -27,7 +23,7 @@ public class Tunnel {
 
     private boolean shouldStop = false;
 
-    private final LinkedList listeners = new LinkedList();
+    private final LinkedList<TunnelListener> listeners = new LinkedList<>();
 
     private ServerSocket serverSocket = null;
 
@@ -51,6 +47,17 @@ public class Tunnel {
         this.srcPort = tunnelSetting.getSrcPort();
         this.destHost = tunnelSetting.getDestHost();
         this.destPort = tunnelSetting.getDestPort();
+    }
+
+    public boolean matches(Tunnel tunnel) {
+
+        if (tunnel == null) {
+            return false;
+        }
+
+        return  (this.getSrcPort() == tunnel.getSrcPort())
+                && this.getDestHost().equals(tunnel.getDestHost())
+                    && (this.getDestPort() == tunnel.getDestPort());
     }
 
     public int getSrcPort() {
@@ -80,41 +87,25 @@ public class Tunnel {
 
     private void fireCallNotifyEvent(Call call) {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                TunnelListener listener = (TunnelListener) it.next();
-                listener.newCall(call);
-            }
+            listeners.forEach(tunnelListener -> tunnelListener.newCall(call));
         }
     }
 
     private void fireCallEndedEvent(Call call) {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                TunnelListener listener = (TunnelListener) it.next();
-                listener.endCall(call);
-            }
+            listeners.forEach(listener -> listener.endCall(call));
         }
     }
 
     private void fireTunnelStarted() {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                TunnelListener listener = (TunnelListener) it.next();
-                listener.tunnelStarted();
-            }
+            listeners.forEach(TunnelListener::tunnelStarted);
         }
     }
 
     private void fireTunnelStopped() {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                TunnelListener listener = (TunnelListener) it.next();
-                listener.tunnelStopped();
-            }
+            listeners.forEach(TunnelListener::tunnelStopped);
         }
     }
 
@@ -122,7 +113,7 @@ public class Tunnel {
         return isRunning;
     }
 
-    public void start() throws TunnelException {
+    void start() throws TunnelException {
 
         try {
 
@@ -170,6 +161,7 @@ public class Tunnel {
                 isRunning = false;
                 System.out.println("Shutdown tunnel running on: " +getSrcPort());
             } catch (IOException e) {
+                System.out.println("Exception thrown closing socket");
             }
         }
     }

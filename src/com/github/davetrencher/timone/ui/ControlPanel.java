@@ -2,8 +2,6 @@ package com.github.davetrencher.timone.ui;
 
 import com.github.davetrencher.timone.TunnelPlugin;
 import com.github.davetrencher.timone.net.Call;
-import com.github.davetrencher.timone.TunnelPlugin;
-import com.github.davetrencher.timone.net.Call;
 import com.github.davetrencher.timone.net.TunnelListener;
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -15,8 +13,6 @@ import java.awt.*;
  * Created by dave on 21/03/16.
  */
 public class ControlPanel extends JPanel implements TunnelListener {
-
-    private JPanel subPanelAddress;
 
     private JTextField srcPort;
 
@@ -35,10 +31,10 @@ public class ControlPanel extends JPanel implements TunnelListener {
 
     }
 
-    protected void initComponents() {
+    private void initComponents() {
         setLayout(new BorderLayout());
 
-        subPanelAddress = new JPanel();
+        JPanel subPanelAddress = new JPanel();
         subPanelAddress.setBorder(new TitledBorder("properties"));
 
         srcPort = new JTextField(TunnelPlugin.TunnelConfig.getSourcePort());
@@ -70,7 +66,7 @@ public class ControlPanel extends JPanel implements TunnelListener {
         subPanelAddress.repaint();
     }
 
-    public void setControlPanelEditable(boolean b) {
+    private void setControlPanelEditable(boolean b) {
 
         TunnelPlugin.PROPERTIES.put(TunnelPlugin.TunnelConfig.DST_HOST,
                 destHost.getText());
@@ -126,17 +122,13 @@ public class ControlPanel extends JPanel implements TunnelListener {
     }
 
 
-    class PortNumberVerifier extends InputVerifier {
+    private class PortNumberVerifier extends InputVerifier {
 
         public boolean verify(JComponent input) {
             String text = ((JTextField) input).getText();
 
-            if (NumberUtils.isDigits(text)) {
-                Integer.parseInt(text);
-                return true;
-            } else {
-                return false;
-            }
+            return NumberUtils.isDigits(text);
+
         }
 
     }

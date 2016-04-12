@@ -2,7 +2,6 @@ package com.github.davetrencher.timone.net;
 
 /**
  * @author boruvka
- * @since
  */
 public interface TunnelListener {
 

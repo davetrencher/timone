@@ -2,6 +2,8 @@ package com.github.davetrencher.timone;
 
 import com.github.davetrencher.timone.action.*;
 import com.github.davetrencher.timone.net.TunnelManager;
+import com.github.davetrencher.timone.ui.Icons;
+import com.github.davetrencher.timone.ui.TunnelPanel;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
@@ -9,9 +11,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.ContentFactory;
-import com.github.davetrencher.timone.net.TunnelManager;
-import com.github.davetrencher.timone.ui.Icons;
-import com.github.davetrencher.timone.ui.TunnelPanel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -42,8 +41,6 @@ public class TunnelPlugin implements ProjectComponent {
                 PROPERTIES_FILE_NAME);
         PROPERTIES = new Properties();
     }
-
-    private ToolWindow tunnelWindow;
 
     private Project project;
 
@@ -91,7 +88,7 @@ public class TunnelPlugin implements ProjectComponent {
 
         ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
         tunnelPanel = createTunnelPanel();
-        tunnelWindow = toolWindowManager.registerToolWindow(TOOL_WINDOW_ID,
+        ToolWindow tunnelWindow = toolWindowManager.registerToolWindow(TOOL_WINDOW_ID,
                 true, ToolWindowAnchor.BOTTOM);
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         tunnelWindow.getContentManager().addContent(contentFactory.createContent(tunnelPanel,"TunnelPanel",true));
@@ -119,16 +116,12 @@ public class TunnelPlugin implements ProjectComponent {
     private DefaultActionGroup initToolbarActionGroup() {
         DefaultActionGroup actionGroup = new DefaultActionGroup();
 
-        AnAction startAction = new StartAction();
-        AnAction stopAction = new StopAction();
         AnAction clearAction = new ClearAction();
         AnAction clearSelectedAction = new ClearSelectedAction();
         AnAction aboutAction = new AboutAction();
         AnAction settingsAction = new SettingsAction();
         ToggleAction wrapAction = new WrapAction();
 
-        actionGroup.add(startAction);
-        actionGroup.add(stopAction);
         actionGroup.add(clearSelectedAction);
         actionGroup.add(clearAction);
         actionGroup.add(wrapAction);

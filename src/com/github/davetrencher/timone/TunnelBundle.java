@@ -4,7 +4,6 @@ import java.util.PropertyResourceBundle;
 
 /**
  * @author boruvka
- * @since
  */
 public class TunnelBundle {
 

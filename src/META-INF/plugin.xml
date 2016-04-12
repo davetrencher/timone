@@ -1,18 +1,17 @@
-<idea-plugin url="https://github.com/trampusmaximus">
+<idea-plugin version="1" url="https://github.com/davetrencher/timone">
 	
-	<name>TunnelliJ</name>
+	<name>timone</name>
 	
-	<id>TunnelliJ</id>	
+	<id>timone</id>
 
 	<description>
-		TunnelliJ plugin works as a TCP tunnel and it useful for any network development.
-		It allows you to monitor, sniff TCP connections and display the content in a very 
-		effective way inside your IDE.
+		TiMONe allows you to launch multiple TCP Monitors so that you can see HTTP request/responses between a client
+        and server.  It's useful for diagnosing and testing XML and JSON requests.
 	</description>
 	
 	<version>2.0</version>
 	
-	<vendor url="https://github.com/trampusmaximus">Dave Trencher</vendor>
+	<vendor url="https://github.com/davetrencher">Dave Trencher</vendor>
 
 	<idea-version since-build="145.258"/>
 	
@@ -44,7 +43,10 @@
 	</application-components>
 
 	<actions>
-		<action id="Settings" class="com.github.davetrencher.timone.action.SettingsAction" text="Settings"
-				description="Action To Set the Tunnels"/>
+		<action id="About" class="com.github.davetrencher.timone.action.AboutAction" text="About" description="Action To show About dialog"/>
+		<action id="Clear" class="com.github.davetrencher.timone.action.ClearAction" text="Clear" description="Action To clear all call information"/>
+		<action id="ClearSelected" class="com.github.davetrencher.timone.action.ClearSelectedAction" text="ClearSelected" description="Action To clear selected call information"/>
+		<action id="Settings" class="com.github.davetrencher.timone.action.SettingsAction" text="Settings" description="Action To Set Up The Tunnels"/>
+		<action id="Wrap" class="com.github.davetrencher.timone.action.WrapAction" text="Wrap" description="Action To Wrap The Tunnel Text"/>
 	</actions>
 </idea-plugin>

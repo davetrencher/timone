@@ -7,7 +7,6 @@ import com.github.davetrencher.timone.ui.CallStringFormatter;
 
 /**
  * @author boruvka
- * @since
  */
 public class Call {
     private long start;

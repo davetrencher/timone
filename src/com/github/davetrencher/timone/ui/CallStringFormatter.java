@@ -1,24 +1,22 @@
 package com.github.davetrencher.timone.ui;
 
+import com.github.davetrencher.timone.net.Call;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.github.davetrencher.timone.net.Call;
-import com.github.davetrencher.timone.net.Call;
-
 /**
  * @author boruvka
- * @since
  */
 public class CallStringFormatter {
 
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SS");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss.SS");
 
     public synchronized static String format(Call call) {
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("[");
-        sb.append(dateFormat.format(new Date(call.getStart())));
+        sb.append(DATE_FORMAT.format(new Date(call.getStart())));
 
         if (call.getOutput() != null) {
             byte[] arr = call.getOutput().toByteArray();

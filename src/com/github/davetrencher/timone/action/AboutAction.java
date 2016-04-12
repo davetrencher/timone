@@ -1,24 +1,15 @@
 package com.github.davetrencher.timone.action;
 
-import java.awt.TextArea;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-
-import javax.swing.JOptionPane;
-
-import com.intellij.openapi.ui.Messages;
 import com.github.davetrencher.timone.TunnelBundle;
 import com.github.davetrencher.timone.ui.Icons;
-
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * @author boruvka
- * @since
  */
 public class AboutAction extends AnAction {
 

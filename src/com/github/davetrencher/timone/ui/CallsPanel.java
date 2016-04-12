@@ -1,29 +1,26 @@
 package com.github.davetrencher.timone.ui;
 
-import java.awt.BorderLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.ByteArrayOutputStream;
+import com.github.davetrencher.timone.net.Call;
+import com.github.davetrencher.timone.net.TunnelListener;
+import com.intellij.ui.components.JBList;
+import com.intellij.ui.components.JBScrollPane;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import com.github.davetrencher.timone.net.Call;
-import com.intellij.ui.components.JBList;
-import com.intellij.ui.components.JBScrollPane;
-import com.github.davetrencher.timone.net.Call;
-import com.github.davetrencher.timone.net.TunnelListener;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
 
 /**
  * @author boruvka
- * @since
  */
 public class CallsPanel extends JPanel implements TunnelListener {
 
     private JList list;
 
-    private DefaultListModel model;
+    private DefaultListModel<Call> model;
 
     private ViewersPanel viewers;
 
@@ -32,7 +29,7 @@ public class CallsPanel extends JPanel implements TunnelListener {
     public CallsPanel() {
 
         setBackground(UIManager.getColor("Tree.textBackground"));
-        model = new DefaultListModel();
+        model = new DefaultListModel<>();
         list = new JBList(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -51,7 +48,7 @@ public class CallsPanel extends JPanel implements TunnelListener {
         initComponents();
     }
 
-    protected void initComponents() {
+    private void initComponents() {
         list.setBackground(UIManager.getColor("Tree.textBackground"));
         list.setVisibleRowCount(3);
 
@@ -84,11 +81,7 @@ public class CallsPanel extends JPanel implements TunnelListener {
     }
 
     public synchronized void newCall(Call call) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                model.addElement(call);
-            }
-        });
+        SwingUtilities.invokeLater(() -> model.addElement(call));
     }
 
     public synchronized void endCall(Call call) {
@@ -146,17 +139,11 @@ class ViewersPanel extends JPanel {
 
     private JTextArea right;
 
-    private JScrollPane leftScroll;
-
-    private JScrollPane rightScroll;
-
-    private JSplitPane splitPaneLeftRight;
-
-    public ViewersPanel() {
+    ViewersPanel() {
         initComponents();
     }
 
-    protected void initComponents() {
+    private void initComponents() {
         setLayout(new BorderLayout());
 
         setBackground(UIManager.getColor("Tree.textBackground"));
@@ -170,10 +157,10 @@ class ViewersPanel extends JPanel {
         left.setBackground(UIManager.getColor("Tree.textBackground"));
         right.setBackground(UIManager.getColor("Tree.textBackground"));
 
-        leftScroll = new JBScrollPane(left);
-        rightScroll = new JBScrollPane(right);
+        JScrollPane leftScroll = new JBScrollPane(left);
+        JScrollPane rightScroll = new JBScrollPane(right);
 
-        splitPaneLeftRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        JSplitPane splitPaneLeftRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPaneLeftRight.setDividerSize(CallsPanel.DIVIDER_SIZE);
         splitPaneLeftRight.setDividerLocation(0.50d);
         splitPaneLeftRight.setResizeWeight(0.50d);
@@ -204,8 +191,7 @@ class ViewersPanel extends JPanel {
             // TODO
 
             byte[] bytes = leftBaos.toByteArray();
-            for (int i = 0; i < bytes.length; i++) {
-                byte b = bytes[i];
+            for (byte b : bytes) {
                 String s = Integer.toHexString(b).toUpperCase();
                 if (s.length() == 1)
                     s = "0" + s;
