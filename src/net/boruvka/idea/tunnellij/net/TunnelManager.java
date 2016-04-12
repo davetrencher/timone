@@ -1,6 +1,10 @@
 package net.boruvka.idea.tunnellij.net;
 
 import com.intellij.openapi.ui.Messages;
+import net.boruvka.idea.tunnellij.TunnelPlugin;
+import net.boruvka.idea.tunnellij.ui.CallsPanel;
+import net.boruvka.idea.tunnellij.ui.ControlPanel;
+import net.boruvka.idea.tunnellij.ui.TunnelPanel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +28,7 @@ public class TunnelManager {
 
             try {
 
+                addListeners(tunnel);
                 tunnel.start();
 
 
@@ -80,6 +85,15 @@ public class TunnelManager {
 
         return runningTunnel.getDestHost().equals(tunnel.getDestHost())
                     && (runningTunnel.getDestPort() == tunnel.getDestPort());
+
+    }
+
+    private static void addListeners(Tunnel tunnel) {
+
+        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
+        CallsPanel list = tunnelPanel.getCallsPanelListener();
+
+        tunnel.addTunnelListener(list);
 
     }
 

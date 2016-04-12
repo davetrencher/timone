@@ -53,6 +53,8 @@ public class TunnelSetting {
 
     public static class SettingsTableModel extends AbstractTableModel {
 
+        public static final String NAME = "SettingsTable";
+
         public static final String SOURCE_PORT = "Source Port";
         public static final String DEST_HOST = "Dest Host";
         public static final String DEST_PORT = "Dest Port";
@@ -137,5 +139,6 @@ public class TunnelSetting {
                     return null;
             }
         }
+        
     }
 }

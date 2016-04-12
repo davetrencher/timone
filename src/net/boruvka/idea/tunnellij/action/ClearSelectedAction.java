@@ -20,7 +20,7 @@ public class ClearSelectedAction extends AnAction {
 
     public void actionPerformed(AnActionEvent event) {
         Project project = (Project) event.getDataContext().getData("project");
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel(project);
+        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
         tunnelPanel.clearSelected();
     }
 }

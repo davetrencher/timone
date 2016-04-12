@@ -137,7 +137,7 @@ public class TunnelPlugin implements ProjectComponent {
         return actionGroup;
     }
 
-    public static TunnelPanel getTunnelPanel(Project project) {
+    public static TunnelPanel getTunnelPanel() {
         return tunnelPanel;
     }
 

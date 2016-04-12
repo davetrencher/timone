@@ -1,19 +1,11 @@
 package net.boruvka.idea.tunnellij.ui;
 
-import java.awt.BorderLayout;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
-import net.boruvka.idea.tunnellij.TunnelPlugin;
-import net.boruvka.idea.tunnellij.net.*;
-
-import com.intellij.openapi.ui.Messages;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author boruvka
@@ -21,18 +13,16 @@ import com.intellij.openapi.ui.Messages;
  */
 public class TunnelPanel extends JPanel {
 
-    private CallsPanel list;
+    public static final String SETTINGS_PANEL = "settingsPanel";
 
-    private ControlPanel control;
+    private CallsPanel list;
 
     public TunnelPanel() {
 
         setLayout(new BorderLayout());
 
         list = new CallsPanel();
-        control = new ControlPanel();
         add(list, BorderLayout.CENTER);
-        add(control, BorderLayout.SOUTH);
 
     }
 
@@ -52,19 +42,31 @@ public class TunnelPanel extends JPanel {
         list.unwrap();
     }
 
-    public boolean isRunning() {
-        return control.isRunning();
-    }
-
-    public int getSrcPort() { return control.getSrcPort(); }
-
-
     public CallsPanel getCallsPanelListener() {
         return list;
     }
 
-    public ControlPanel getControlPanelListener() {
-        return control;
+    public Component getComponentWithName(String name) {
+
+        java.util.Map<String,Component> components = getAllNamedComponents(this);
+        return components.get(name);
     }
+
+    private Map<String,Component> getAllNamedComponents(final Container c) {
+
+        Component[] comps = c.getComponents();
+        Map<String,Component> compMap = new HashMap<>();
+        for (Component comp : comps) {
+            if (StringUtils.isNotEmpty(comp.getName())) {
+                compMap.put(comp.getName(), comp);
+            }
+
+            if (comp instanceof Container) {
+                compMap.putAll(getAllNamedComponents((Container) comp));
+            }
+        }
+        return compMap;
+    }
+
 }
 

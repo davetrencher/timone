@@ -19,6 +19,7 @@ import java.util.List;
  * @author boruvka
  * @since
  */
+@Deprecated
 public class StopAction extends AnAction {
 
     public StopAction() {
@@ -27,15 +28,13 @@ public class StopAction extends AnAction {
 
     public void actionPerformed(AnActionEvent event) {
         Project project = (Project) event.getDataContext().getData("project");
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel(project);
+        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
         try {
             ConfigProvider config = project.getComponent(ConfigProvider.class);
             List<TunnelSetting> settings = config.getState().getSettingsList();
 
             if (settings.size() > 0) {
                 TunnelManager.stop(settings.get(0).getSrcPort());
-            } else {
-                TunnelManager.stop(tunnelPanel.getSrcPort());
             }
             tunnelPanel.repaint();
         } catch (Exception e) {
@@ -47,9 +46,9 @@ public class StopAction extends AnAction {
 
     public void update(AnActionEvent event) {
         Project project = (Project) event.getDataContext().getData("project");
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel(project);
+        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
         Presentation p = event.getPresentation();
-        p.setEnabled(tunnelPanel.isRunning());
+     //   p.setEnabled(tunnelPanel.isRunning());
         p.setVisible(true);
     }
 

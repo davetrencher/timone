@@ -22,6 +22,7 @@ import java.util.List;
  * @author boruvka
  * @since
  */
+@Deprecated
 public class StartAction extends AnAction {
 
     public StartAction() {
@@ -44,29 +45,26 @@ public class StartAction extends AnAction {
     @NotNull
     private Tunnel getTunnel(Project project) {
 
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel(project);
-        ControlPanel control = tunnelPanel.getControlPanelListener();
+        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
         CallsPanel list = tunnelPanel.getCallsPanelListener();
 
         ConfigProvider config = project.getComponent(ConfigProvider.class);
         List<TunnelSetting> settings = config.getState().getSettingsList();
 
-        Tunnel tunnel;
+        Tunnel tunnel = null;
         if (settings.size() > 0) {
             tunnel = new Tunnel(settings.get(0));
-        } else {
-            tunnel = new Tunnel(control.getSrcPort(), control.getDestHost(), control.getDestPort());
+            tunnel.addTunnelListener(list);
         }
-        tunnel.addTunnelListener(list);
-        tunnel.addTunnelListener(control);
+
         return tunnel;
     }
 
     public void update(AnActionEvent event) {
         Project project = (Project) event.getDataContext().getData("project");
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel(project);
+        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
         Presentation p = event.getPresentation();
-        p.setEnabled(!tunnelPanel.isRunning());
+    //    p.setEnabled(!tunnelPanel.isRunning());
         p.setVisible(true);
     }
 }
