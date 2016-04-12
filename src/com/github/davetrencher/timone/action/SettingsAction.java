@@ -53,7 +53,7 @@ public class SettingsAction extends AnAction {
     private void updateSettingsPanel(ConfigProvider config) {
         ConfigProvider.State state = config.getState();
         if (state == null) {
-            System.out.println("Unalbe to update settings panel.  State was null");
+            System.out.println("Unable to update settings panel.  State was null");
             return;
         }
 
