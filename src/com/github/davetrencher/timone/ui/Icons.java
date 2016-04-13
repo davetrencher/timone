@@ -18,10 +18,6 @@ public class Icons {
 
     // Intellij icons
     // intellij-community/platform/icons/src/actions
-    public static final ImageIcon ICON_START = getIcon("actions/execute.png");
-
-    public static final ImageIcon ICON_STOP = getIcon("actions/suspend.png");
-
     public static final ImageIcon ICON_SETTINGS = getIcon("general/gearPlain.png");
 
     public static final ImageIcon ICON_HELP = getIcon("actions/help.png");
