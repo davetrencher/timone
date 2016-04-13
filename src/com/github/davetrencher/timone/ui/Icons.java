@@ -22,7 +22,7 @@ public class Icons {
 
     public static final ImageIcon ICON_STOP = getIcon("actions/suspend.png");
 
-    public static final ImageIcon ICON_SETTINGS = getIcon("actions/forward.png");
+    public static final ImageIcon ICON_SETTINGS = getIcon("general/gearPlain.png");
 
     public static final ImageIcon ICON_HELP = getIcon("actions/help.png");
 

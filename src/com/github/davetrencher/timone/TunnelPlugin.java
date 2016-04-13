@@ -122,10 +122,10 @@ public class TunnelPlugin implements ProjectComponent {
         AnAction settingsAction = new SettingsAction();
         ToggleAction wrapAction = new WrapAction();
 
+        actionGroup.add(settingsAction);
         actionGroup.add(clearSelectedAction);
         actionGroup.add(clearAction);
         actionGroup.add(wrapAction);
-        actionGroup.add(settingsAction);
         actionGroup.add(aboutAction);
 
         return actionGroup;

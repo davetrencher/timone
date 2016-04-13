@@ -43,7 +43,7 @@
 	</application-components>
 
 	<actions>
-		<action id="About" class="com.github.davetrencher.timone.action.AboutAction" text="About" description="Action To show About dialog"/>
+
 		<action id="Clear" class="com.github.davetrencher.timone.action.ClearAction" text="Clear" description="Action To clear all call information"/>
 		<action id="ClearSelected" class="com.github.davetrencher.timone.action.ClearSelectedAction" text="ClearSelected" description="Action To clear selected call information"/>
 		<action id="Settings" class="com.github.davetrencher.timone.action.SettingsAction" text="Settings" description="Action To Set Up The Tunnels"/>
