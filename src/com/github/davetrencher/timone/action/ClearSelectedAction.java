@@ -1,8 +1,6 @@
 package com.github.davetrencher.timone.action;
 
-import com.github.davetrencher.timone.TunnelPlugin;
 import com.github.davetrencher.timone.ui.Icons;
-import com.github.davetrencher.timone.ui.TunnelPanel;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 
@@ -16,7 +14,7 @@ public class ClearSelectedAction extends AnAction {
     }
 
     public void actionPerformed(AnActionEvent event) {
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
-        tunnelPanel.clearSelected();
+//        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
+//        tunnelPanel.clearSelected();
     }
 }

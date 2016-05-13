@@ -3,12 +3,15 @@ package com.github.davetrencher.timone.settings;
 import com.github.davetrencher.timone.net.TunnelManager;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dave on 22/03/16.
  */
-public class TunnelSetting {
+public class TunnelSetting implements Serializable {
 
     private int srcPort;
 
@@ -25,11 +28,24 @@ public class TunnelSetting {
         this.destPort = destPort;
     }
 
+    public TunnelSetting(Object[] arr) {
+        if (arr[0] != null && arr[0] instanceof Integer) {
+            this.srcPort = (Integer)arr[0];
+        }
+        if (arr[1] != null && arr[1] instanceof String) {
+            this.destHost = (String)arr[1];
+        }
+        if (arr[2] != null && arr[2] instanceof Integer) {
+            this.destPort = (Integer)arr[2];
+        }
+    }
+
+
     public int getSrcPort() {
         return srcPort;
     }
 
-    private void setSrcPort(int srcPort) {
+    public void setSrcPort(int srcPort) {
         this.srcPort = srcPort;
     }
 
@@ -37,7 +53,7 @@ public class TunnelSetting {
         return destHost;
     }
 
-    private void setDestHost(String destHost) {
+    public void setDestHost(String destHost) {
         this.destHost = destHost;
     }
 
@@ -45,7 +61,7 @@ public class TunnelSetting {
         return destPort;
     }
 
-    private void setDestPort(int destPort) {
+    public void setDestPort(int destPort) {
         this.destPort = destPort;
     }
 
@@ -60,12 +76,28 @@ public class TunnelSetting {
 
         private final List<TunnelSetting> settings;
 
+
         public SettingsTableModel(List<TunnelSetting> settings) {
             this.settings = settings;
         }
 
+        public void addRow(Object[] arr) {
+            TunnelSetting setting = new TunnelSetting(arr);
+            settings.add(setting);
+        }
+
+        public void removeRow(int row) {
+            if (getRowCount() >= row) {
+                settings.remove(row);
+            }
+        }
+
+
         @Override
         public int getRowCount() {
+            if (settings == null) {
+                return 0;
+            }
             return settings.size();
         }
 

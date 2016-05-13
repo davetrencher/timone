@@ -2,6 +2,7 @@ package com.github.davetrencher.timone.ui;
 
 import com.github.davetrencher.timone.net.Call;
 import com.github.davetrencher.timone.net.TunnelListener;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.ui.components.JBList;
 import com.intellij.ui.components.JBScrollPane;
 
@@ -81,7 +82,7 @@ public class CallsPanel extends JPanel implements TunnelListener {
     }
 
     public synchronized void newCall(Call call) {
-        SwingUtilities.invokeLater(() -> model.addElement(call));
+        ApplicationManager.getApplication().invokeLater(() -> model.addElement(call));
     }
 
     public synchronized void endCall(Call call) {

@@ -28,25 +28,15 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
-		<applicationService
-				serviceImplementation="com.github.davetrencher.timone.settings.ConfigProvider"
-				serviceInterface="com.github.davetrencher.timone.settings.ConfigProvider"
-				overrides="false"
-		/>
+		<projectService serviceInterface="com.github.davetrencher.timone.settings.TimoneSettings" serviceImplementation="com.github.davetrencher.timone.settings.TimoneSettings"/>
 	</extensions>
 
-	<application-components>
-		<component>
-			<implementation-class>com.github.davetrencher.timone.settings.ConfigProvider</implementation-class>
-			<interface-class>com.github.davetrencher.timone.settings.ConfigProvider</interface-class>
-		</component>
-	</application-components>
-
 	<actions>
-
-		<action id="Clear" class="com.github.davetrencher.timone.action.ClearAction" text="Clear" description="Action To clear all call information"/>
-		<action id="ClearSelected" class="com.github.davetrencher.timone.action.ClearSelectedAction" text="ClearSelected" description="Action To clear selected call information"/>
-		<action id="Settings" class="com.github.davetrencher.timone.action.SettingsAction" text="Settings" description="Action To Set Up The Tunnels"/>
-		<action id="Wrap" class="com.github.davetrencher.timone.action.WrapAction" text="Wrap" description="Action To Wrap The Tunnel Text"/>
+		<action id="Clear" 			text="Clear" 			class="com.github.davetrencher.timone.action.ClearAction" />
+		<action id="ClearSelected" 	text="ClearSelected" 	class="com.github.davetrencher.timone.action.ClearSelectedAction" />
+		<action id="Settings" 		text="Settings" 		class="com.github.davetrencher.timone.action.SettingsAction" />
+		<action id="Wrap" 			text="Wrap" 			class="com.github.davetrencher.timone.action.WrapAction" />
+		<action id="AddTunnel" 		text="AddTunnel" 		class="com.github.davetrencher.timone.action.AddTunnelAction" />
+		<action id="RemoveTunnel" 	text="RemoveTunnel" 	class="com.github.davetrencher.timone.action.RemoveTunnelAction" />
 	</actions>
 </idea-plugin>

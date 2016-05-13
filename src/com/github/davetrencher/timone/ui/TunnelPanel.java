@@ -1,5 +1,7 @@
 package com.github.davetrencher.timone.ui;
 
+import com.intellij.openapi.components.NamedComponent;
+import com.intellij.ui.components.JBPanel;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -10,9 +12,9 @@ import java.util.Map;
 /**
  * @author boruvka
  */
-public class TunnelPanel extends JPanel {
+public class TunnelPanel extends JBPanel implements NamedComponent {
 
-    public static final String SETTINGS_PANEL = "settingsPanel";
+    public static final String NAME = "TunnelPanel";
 
     private CallsPanel list;
 
@@ -23,6 +25,16 @@ public class TunnelPanel extends JPanel {
         list = new CallsPanel();
         add(list, BorderLayout.CENTER);
 
+    }
+
+    @Override
+    public String getComponentName() {
+        return NAME;
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 
     public void clear() {

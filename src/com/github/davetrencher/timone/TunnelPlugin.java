@@ -5,11 +5,10 @@ import com.github.davetrencher.timone.net.TunnelManager;
 import com.github.davetrencher.timone.ui.Icons;
 import com.github.davetrencher.timone.ui.TunnelPanel;
 import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.components.NamedComponent;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.openapi.wm.ToolWindowAnchor;
-import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.openapi.wm.*;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +22,7 @@ import java.util.Properties;
  */
 public class TunnelPlugin implements ProjectComponent {
 
-    private static TunnelPanel tunnelPanel;
+    private TunnelPanel tunnelPanel;
 
     public static Properties PROPERTIES;
 
@@ -31,7 +30,7 @@ public class TunnelPlugin implements ProjectComponent {
 
     private static File PROPERTIES_FILE;
 
-    private static final String COMPONENT_NAME = "com.github.davetrencher.timone.TunnelWindow";
+    public static final String COMPONENT_NAME = "com.github.davetrencher.timone.TunnelWindow";
 
     private static final String TOOL_WINDOW_ID = TunnelBundle.getBundle()
             .getString("timone.version");
@@ -42,7 +41,7 @@ public class TunnelPlugin implements ProjectComponent {
         PROPERTIES = new Properties();
     }
 
-    private Project project;
+    private static Project project;
 
     public TunnelPlugin(Project project) {
         this.project = project;
@@ -73,6 +72,10 @@ public class TunnelPlugin implements ProjectComponent {
         }
     }
 
+    public static StatusBar getStatusBar() {
+        return WindowManager.getInstance().getStatusBar(project);
+    }
+
     public synchronized void disposeComponent() {
         try {
             OutputStream os = new FileOutputStream(PROPERTIES_FILE);
@@ -96,7 +99,7 @@ public class TunnelPlugin implements ProjectComponent {
 
         DefaultActionGroup actionGroup = initToolbarActionGroup();
         ActionToolbar toolBar = ActionManager.getInstance()
-                .createActionToolbar("tunnellij.Toolbar", actionGroup, false);
+                .createActionToolbar("timone.Toolbar", actionGroup, false);
 
         tunnelPanel.add(toolBar.getComponent(), BorderLayout.WEST);
     }
@@ -131,7 +134,7 @@ public class TunnelPlugin implements ProjectComponent {
         return actionGroup;
     }
 
-    public static TunnelPanel getTunnelPanel() {
+    public TunnelPanel getTunnelPanel() {
         return tunnelPanel;
     }
 

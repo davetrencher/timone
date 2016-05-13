@@ -79,10 +79,10 @@ public class TunnelManager {
 
     private static void addListeners(Tunnel tunnel) {
 
-        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
-        CallsPanel list = tunnelPanel.getCallsPanelListener();
-
-        tunnel.addTunnelListener(list);
+//        TunnelPanel tunnelPanel = TunnelPlugin.getTunnelPanel();
+//        CallsPanel list = tunnelPanel.getCallsPanelListener();
+//
+//        tunnel.addTunnelListener(list);
 
     }
 

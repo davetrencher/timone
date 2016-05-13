@@ -1,10 +1,11 @@
 package com.github.davetrencher.timone.settings;
 
-import com.github.davetrencher.timone.net.Tunnel;
-import com.intellij.openapi.application.Application;
-import com.intellij.openapi.components.*;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.project.Project;
+import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -17,85 +18,39 @@ import java.util.List;
         name = "TimoneSettings",
         storages = {
                 @Storage(
-                        value =  "/timone_settings.xml"
+                        id = "settings", value =  "timone_settings.xml"
                 )}
 )
-public class TimoneSettings implements PersistentStateComponent<Element>, ApplicationComponent {
-
-    private static final String ELEMENT_TIMONE_SETTINGS = "timoneSettings";
-    private static final String ELEMENT_TUNNEL = "tunnel";
-    private static final String ELEMENT_SOURCE = "source";
-    private static final String ELEMENT_DESTINATION = "destination";
-    private static final String ATTRIBUTE_PORT = "port";
-    private static final String ATTRIBUTE_HOST = "host";
+public class TimoneSettings implements PersistentStateComponent<TimoneSettings> {
 
     private List<TunnelSetting> settingsList = new ArrayList<>();
 
-    @Override
-    public void loadState(Element timoneSettings) {
-
-        List<Element> tunnels = timoneSettings.getChildren();
-
-        tunnels.forEach(tunnel -> {
-
-            Element source = tunnel.getChild(ELEMENT_SOURCE);
-            int srcPort = Integer.parseInt(source.getAttributeValue(ATTRIBUTE_PORT));
-
-            Element destination = tunnel.getChild(ELEMENT_DESTINATION);
-            String destHost = destination.getAttributeValue(ATTRIBUTE_HOST);
-            int destPort = Integer.parseInt(destination.getAttributeValue(ATTRIBUTE_PORT));
-            TunnelSetting tunnelSetting = new TunnelSetting(srcPort,destHost,destPort);
-
-            settingsList.add(tunnelSetting);
-        });
-
+    @Nullable
+    public static TimoneSettings getInstance(Project project) {
+        return ServiceManager.getService(project,TimoneSettings.class);
     }
 
-
-    @Nullable
     @Override
-    public Element getState() {
+    @org.jetbrains.annotations.Nullable
+    public TimoneSettings getState() {
+        System.out.println("Get State Called" + settingsList.size());
+        return this; //Saves all public variables to disk.
+    }
 
-        Element timoneSettings = new Element(ELEMENT_TIMONE_SETTINGS);
-        settingsList.forEach(tunnelSetting -> {
-            Element tunnel = new Element(ELEMENT_TUNNEL);
-            Element source = new Element(ELEMENT_SOURCE);
-            source.setAttribute(ATTRIBUTE_PORT,String.valueOf(tunnelSetting.getSrcPort()));
-            tunnel.addContent(source);
-
-            Element target = new Element(ELEMENT_DESTINATION);
-            target.setAttribute(ATTRIBUTE_HOST,tunnelSetting.getDestHost());
-            target.setAttribute(ATTRIBUTE_PORT,String.valueOf(tunnelSetting.getDestPort()));
-            tunnel.addContent(target);
-
-            timoneSettings.addContent(tunnel);
-        });
-
-        return timoneSettings;
+    @Override
+    public void loadState(TimoneSettings settings) {
+        System.out.println("Load State Called" + settings.settingsList.size());
+        XmlSerializerUtil.copyBean(settings, this); //restores state from disk
     }
 
     public List<TunnelSetting> getSettingsList() {
-        return settingsList;
+        return this.settingsList;
     }
 
     public void setSettingsList(List<TunnelSetting> settingsList) {
         this.settingsList = settingsList;
     }
 
-    @Override
-    public void initComponent() {
 
-    }
-
-    @Override
-    public void disposeComponent() {
-
-    }
-
-    @NotNull
-    @Override
-    public String getComponentName() {
-        return this.getClass().getName();
-    }
 }
 
